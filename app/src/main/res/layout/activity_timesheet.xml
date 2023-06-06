@@ -40,11 +40,11 @@
         android:id="@+id/entry_description_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="200dp"
+        android:layout_marginBottom="40dp"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
-        app:layout_constraintBottom_toTopOf="@+id/create_entry_button"
+        app:layout_constraintBottom_toTopOf="@+id/entry_category_input"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -92,4 +92,13 @@
         android:text="Back"
         tools:layout_editor_absoluteX="22dp"
         tools:layout_editor_absoluteY="21dp" />
+
+    <Spinner
+        android:id="@+id/entry_category_input"
+        android:layout_width="210dp"
+        android:layout_height="47dp"
+        android:layout_marginBottom="100dp"
+        app:layout_constraintBottom_toTopOf="@+id/create_entry_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
