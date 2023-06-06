@@ -18,7 +18,6 @@ class LoginActivity : AppCompatActivity()
         val username = findViewById<EditText>(R.id.login_username_input).toString()
         val password = findViewById<EditText>(R.id.login_password_input).toString()
 
-
         // Login
         val navHome = findViewById<Button>(R.id.confirm_login_button)
 
