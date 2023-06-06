@@ -13,10 +13,13 @@
         android:theme="@style/Theme.Kronos"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity3"
+            android:name=".RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity2"
+            android:name=".HomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

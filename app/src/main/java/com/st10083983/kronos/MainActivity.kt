@@ -12,11 +12,11 @@ class MainActivity : AppCompatActivity()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val myBt = findViewById<Button>(R.id.myButton)
+        val navLogin = findViewById<Button>(R.id.get_started_button)
 
-        myBt.setOnClickListener()
+        navLogin.setOnClickListener()
         {
-            val intent = Intent(this, MainActivity2::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
         }
