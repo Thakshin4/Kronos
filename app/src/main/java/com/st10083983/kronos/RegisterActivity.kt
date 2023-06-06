@@ -54,8 +54,8 @@ class RegisterActivity : AppCompatActivity() {
             val newUser = username to password
             mapExistingUsers[newUser.first] = newUser.second
 
-            // Navigate to Home
-            val intent = Intent(this, HomeActivity::class.java)
+            // Navigate to Login
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
         }

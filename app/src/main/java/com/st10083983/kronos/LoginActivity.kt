@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-
+val bUser: Boolean = false
 class LoginActivity : AppCompatActivity()
 {
     override fun onCreate(savedInstanceState: Bundle?)
@@ -37,22 +37,19 @@ class LoginActivity : AppCompatActivity()
         }
     }
 
+
     private fun handleLogin(username: String, password: String)
     {
-        // Test Login
-        val testUsername = "James"
-        val testPassword = "ThePassword"
-
         // --- Login Logic Here ---
-        if (username == testUsername && password == testPassword)
-        {
+        val found = mapExistingUsers.entries.find { (user, pass) ->
+            user.equals(username)  && pass.equals(password)
+        }
+        if (found != null) {
             // Navigate to Home
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
             finish()
-        }
-        else
-        {
+        } else {
             // Incorrect Details
             Toast.makeText(applicationContext,
                 "Username or Password is incorrect.",

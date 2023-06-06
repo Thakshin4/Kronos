@@ -9,7 +9,7 @@ import android.widget.Spinner
 import java.util.Date
 import java.text.SimpleDateFormat
 
-// ArrayList of KCategory Objects
+// ArrayList of KTimesheet Objects
 var arrEntries = arrayListOf<KTimesheet>()
 
 class TimesheetActivity : AppCompatActivity() {
