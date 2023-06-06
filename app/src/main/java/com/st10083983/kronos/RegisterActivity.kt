@@ -10,6 +10,7 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
+        // Register
         val navHome = findViewById<Button>(R.id.register_confirm_button)
 
         navHome.setOnClickListener()
@@ -19,6 +20,7 @@ class RegisterActivity : AppCompatActivity() {
             finish()
         }
 
+        // Navigate to Login
         val navLogin = findViewById<Button>(R.id.nav_login_button)
 
         navLogin.setOnClickListener()
