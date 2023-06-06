@@ -22,6 +22,8 @@ class HomeActivity : AppCompatActivity()
             finish()
         }
 
+        // Testing
+
         // Navigate to Timesheet
         val navTimesheet = findViewById<Button>(R.id.nav_timesheet_button)
 
