@@ -21,10 +21,10 @@ class EntryCustomAdapter(private val mList: List<KEntryReportItems>) : RecyclerV
     // binds the list items to a view
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        val KReportItems = mList[position]
+        val reportItems = mList[position]
 
         // sets the image to the textview from our itemHolder class
-        val entryItem = "Date: " + KReportItems.entryDate + "\n" + "Hours Worked: " + KReportItems.entryHours + "\n" + "Description: " + KReportItems.entryDescription
+        val entryItem = "Category: ${reportItems.entryCategory} \nDate: ${reportItems.entryDate} \nHours Worked: ${reportItems.entryHours} \nDescription: ${reportItems.entryDescription}"
         holder.entry.text =  entryItem
     }
 

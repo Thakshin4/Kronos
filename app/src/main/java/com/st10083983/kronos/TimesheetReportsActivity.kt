@@ -42,7 +42,6 @@ class TimesheetReportsActivity : AppCompatActivity() {
         val spinnerSelectablePeriod = findViewById<Spinner>(R.id.timesheet_selectable_period_spinner)
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, selectablePeriods)
         // __________________________________________________________________
-
         spinnerSelectablePeriod.adapter = adapter
         spinnerSelectablePeriod.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
@@ -102,6 +101,7 @@ class TimesheetReportsActivity : AppCompatActivity() {
 
         // ArrayList of class ItemsViewModel
         val data = ArrayList<KEntryReportItems>()
+        data.clear() // Clear RecyclerView Test
 
         for (item in arrEntryReportItems)
         {
@@ -127,12 +127,13 @@ class TimesheetReportsActivity : AppCompatActivity() {
 //        }
         for (entry in arrEntries)
         {
-            arrEntryReportItems.add(KEntryReportItems(entry.entryDate.toString(), entry.entryHours.toString(), entry.entryDescription))
+            arrEntryReportItems.add(KEntryReportItems(entry.entryCategory, entry.entryDate.toString(), entry.entryHours.toString(), entry.entryDescription))
         }
     }
 }
 
 data class KEntryReportItems(
+    val entryCategory: String,
     val entryDate: String,
     val entryHours: String,
     val entryDescription: String

@@ -18,7 +18,7 @@
 
     <Button
         android:id="@+id/nav_login_button"
-        android:layout_width="wrap_content"
+        android:layout_width="210dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="80dp"
         android:text="Login Now!"
@@ -28,7 +28,7 @@
 
     <Button
         android:id="@+id/register_confirm_button"
-        android:layout_width="wrap_content"
+        android:layout_width="210dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:text="Register"

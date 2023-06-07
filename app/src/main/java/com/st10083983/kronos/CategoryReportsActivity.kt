@@ -47,6 +47,7 @@ class CategoryReportsActivity : AppCompatActivity() {
 
         // ArrayList of class ItemsViewModel
         val data = ArrayList<KCategoryReportItems>()
+        data.clear() // Clear RecyclerView Test
 
         for (item in arrCategoryReportItems)
         {

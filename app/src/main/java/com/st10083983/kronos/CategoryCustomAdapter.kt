@@ -21,10 +21,10 @@ class CategoryCustomAdapter(private val mList: List<KCategoryReportItems>) : Rec
     // binds the list items to a view
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        val KReportItems = mList[position]
+        val reportItems = mList[position]
 
         // sets the image to the textview from our itemHolder class
-        val categoryItem = "Category: " + KReportItems.categoryName + "\n" + "Total Hours: " + KReportItems.totalEntryHoursWorked
+        val categoryItem = "Category: " + reportItems.categoryName + "\n" + "Total Hours: " + reportItems.totalEntryHoursWorked
         holder.category.text =  categoryItem
     }
 

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
 
 // ArrayList of KCategory Objects
 var arrCategories = arrayListOf<KCategory>()
