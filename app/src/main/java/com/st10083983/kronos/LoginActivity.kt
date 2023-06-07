@@ -43,7 +43,7 @@ class LoginActivity : AppCompatActivity()
     private fun handleLogin(username: String, password: String)
     {
         // Debug Login
-        mapExistingUsers["1Username"] = "1Password"
+        mapExistingUsers["Name"] = "Pass"
 
         // --- Login Logic Here ---
         if (mapExistingUsers.containsKey(username) && mapExistingUsers[username] == password)

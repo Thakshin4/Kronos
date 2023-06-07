@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 
 // ArrayList of KCategory Objects
 var arrCategories = arrayListOf<KCategory>()
@@ -15,18 +16,21 @@ class CategoryActivity : AppCompatActivity() {
         setContentView(R.layout.activity_category)
 
         // Variables
-        val categoryName = findViewById<EditText>(R.id.category_name_input).toString()
-        val categoryMin = findViewById<EditText>(R.id.category_min_input).toString()
-        val categoryMax = findViewById<EditText>(R.id.category_max_input).toString()
-
-        // KCategory Object
-        val category = KCategory(categoryName, categoryMin, categoryMax)
+        val edtxCategoryName = findViewById<EditText>(R.id.category_name_input)
+        val edtxCategoryMin = findViewById<EditText>(R.id.category_min_input)
+        val edtxCategoryMax = findViewById<EditText>(R.id.category_max_input)
 
         // Create Category
         val createCategory = findViewById<Button>(R.id.create_category_button)
 
         createCategory.setOnClickListener()
         {
+            val categoryName = edtxCategoryName.text.toString()
+            val categoryMin = edtxCategoryMin.text.toString()
+            val categoryMax = edtxCategoryMax.text.toString()
+
+            // KCategory Object
+            val category = KCategory(categoryName, categoryMin, categoryMax)
             handleCreateCategory(category)
         }
 
@@ -45,6 +49,12 @@ class CategoryActivity : AppCompatActivity() {
     private fun handleCreateCategory(category: KCategory)
     {
         arrCategories.add(category)
+
+        Toast.makeText(
+            applicationContext,
+            "Category Created",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 }
 

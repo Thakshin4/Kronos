@@ -3,9 +3,13 @@ package com.st10083983.kronos
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
+import android.widget.Toast
 import java.util.Date
 import java.text.SimpleDateFormat
 
@@ -17,24 +21,32 @@ class TimesheetActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_timesheet)
 
-        // Spinner Code
+        // Spinner
+        val arrCategoryNames = arrCategories.map { it.categoryName }
+
+        val spinnerEntryCategory = findViewById<Spinner>(R.id.entry_category_input)
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, arrCategoryNames)
+        spinnerEntryCategory.adapter = adapter
 
         // Variables
-        val entryDate = findViewById<EditText>(R.id.entry_date_input).toString()
-        val entryHours = findViewById<EditText>(R.id.entry_hours_input).toString().toInt()
-        val entryDescription = findViewById<EditText>(R.id.entry_description_input).toString()
-        val entryCategory = findViewById<Spinner>(R.id.entry_category_input).toString() // Store from Spinner
+        val edtxEntryDate = findViewById<EditText>(R.id.entry_date_input)
+        val edtxEntryHours = findViewById<EditText>(R.id.entry_hours_input)
+        val edtxEntryDescription = findViewById<EditText>(R.id.entry_description_input)
 
         val dateFormat = SimpleDateFormat("yyyy-MM-dd")
-
-        // KTimesheet Object
-        val timesheetEntry = KTimesheet(dateFormat.parse(entryDate), entryHours, entryDescription, entryCategory)
 
         // Create Timesheet Entry
         val createTimesheetEntry = findViewById<Button>(R.id.create_entry_button)
 
         createTimesheetEntry.setOnClickListener()
         {
+            val entryDate = edtxEntryDate.text.toString()
+            val entryHours = edtxEntryHours.text.toString().toInt()
+            val entryDescription = edtxEntryDescription.text.toString()
+            val entryCategory = spinnerEntryCategory.selectedItem.toString()
+
+            // KTimesheet Object
+            val timesheetEntry = KTimesheet(dateFormat.parse(entryDate) as Date, entryHours, entryDescription, entryCategory)
             handleEntryCreation(timesheetEntry)
         }
 
@@ -57,6 +69,12 @@ class TimesheetActivity : AppCompatActivity() {
     private fun handleEntryCreation(timesheetEntry:KTimesheet)
     {
         arrEntries.add(timesheetEntry)
+
+        Toast.makeText(
+            applicationContext,
+            "Timesheet Entry Created",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 }
 

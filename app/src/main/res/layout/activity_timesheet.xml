@@ -102,6 +102,7 @@
         android:layout_width="210dp"
         android:layout_height="47dp"
         android:layout_marginBottom="100dp"
+        android:spinnerMode="dropdown"
         app:layout_constraintBottom_toTopOf="@+id/create_entry_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
