@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-val bUser: Boolean = false
+
 class LoginActivity : AppCompatActivity()
 {
     override fun onCreate(savedInstanceState: Bundle?)
@@ -15,14 +15,17 @@ class LoginActivity : AppCompatActivity()
         setContentView(R.layout.activity_login)
 
         // Variables
-        val username = findViewById<EditText>(R.id.login_username_input).toString()
-        val password = findViewById<EditText>(R.id.login_password_input).toString()
+        val edtxUsername = findViewById<EditText>(R.id.login_username_input)
+        val edtxPassword = findViewById<EditText>(R.id.login_password_input)
 
         // Login
         val navHome = findViewById<Button>(R.id.confirm_login_button)
 
         navHome.setOnClickListener()
         {
+            val username = edtxUsername.text.toString()
+            val password = edtxPassword.text.toString()
+
             handleLogin(username, password)
         }
 
@@ -37,22 +40,24 @@ class LoginActivity : AppCompatActivity()
         }
     }
 
-
     private fun handleLogin(username: String, password: String)
     {
+        // Debug Login
+        mapExistingUsers["1Username"] = "1Password"
+
         // --- Login Logic Here ---
-        val found = mapExistingUsers.entries.find { (user, pass) ->
-            user.equals(username)  && pass.equals(password)
-        }
-        if (found != null) {
+        if (mapExistingUsers.containsKey(username) && mapExistingUsers[username] == password)
+        {
             // Navigate to Home
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
             finish()
-        } else {
+        }
+        else
+        {
             // Incorrect Details
             Toast.makeText(applicationContext,
-                "Username or Password is incorrect.",
+                "Username or Password is incorrect." + mapExistingUsers["Name"] + password,
                 Toast.LENGTH_SHORT).show()
         }
     }
