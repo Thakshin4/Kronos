@@ -29,9 +29,19 @@ class CategoryActivity : AppCompatActivity() {
             val categoryMin = edtxCategoryMin.text.toString()
             val categoryMax = edtxCategoryMax.text.toString()
 
-            // KCategory Object
-            val category = KCategory(categoryName, categoryMin, categoryMax)
-            handleCreateCategory(category)
+            if (categoryName.isEmpty() || categoryMin.isEmpty() || categoryMax.isEmpty())
+            {
+                Toast.makeText(
+                    applicationContext,
+                    "Certain fields are Empty",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            else
+            {
+                val category = KCategory(categoryName, categoryMin, categoryMax)
+                handleCreateCategory(category)
+            }
         }
 
         // Back Button

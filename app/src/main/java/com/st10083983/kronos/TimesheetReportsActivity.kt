@@ -37,11 +37,10 @@ class TimesheetReportsActivity : AppCompatActivity() {
         // The following code was taken from GeeksforGeeks:
         // Author : Praveenruhil
         // Link : https://www.geeksforgeeks.org/spinner-in-kotlin/
-        val selectablePeriods = arrayListOf<String>("7 Days", "14 Days", "30 Days")
+        val selectablePeriods = arrayListOf("7 Days", "14 Days", "30 Days")
 
         val spinnerSelectablePeriod = findViewById<Spinner>(R.id.timesheet_selectable_period_spinner)
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, selectablePeriods)
-        spinnerSelectablePeriod.adapter = adapter
         // __________________________________________________________________
 
         spinnerSelectablePeriod.adapter = adapter
@@ -56,7 +55,7 @@ class TimesheetReportsActivity : AppCompatActivity() {
                 // Test Text
                 Toast.makeText(
                     applicationContext,
-                    "You have selected the following category: " + selectablePeriods,
+                    "You have selected the following period: $selectablePeriods",
                     Toast.LENGTH_SHORT
                 ).show()
                 handleReports(spinnerSelectablePeriod.selectedItem.toString())
@@ -96,7 +95,7 @@ class TimesheetReportsActivity : AppCompatActivity() {
         handleReportItems(period)
 
         // getting the recyclerview by its id
-        val recyclerview = findViewById<RecyclerView>(R.id.reports_recyclerview)
+        val recyclerview = findViewById<RecyclerView>(R.id.timesheet_reports_recyclerview)
 
         // this creates a vertical layout Manager
         recyclerview.layoutManager = LinearLayoutManager(this)
@@ -118,16 +117,23 @@ class TimesheetReportsActivity : AppCompatActivity() {
 
     private fun handleReportItems(period: Date)
     {
-        var stringEntry = ""
+//        for (entry in arrEntries)
+//        {
+//            if (entry.entryDate.after(period))
+//            {
+//                arrEntryReportItems.add(KEntryReportItems(entry.entryDate.toString(), entry.entryHours.toString(), entry.entryDescription))
+//            }
+//
+//        }
         for (entry in arrEntries)
         {
-            stringEntry = "Date: " + entry.entryDate + "\n" + "Hours Worked: " + entry.entryHours + "\n" + "Description: " + entry.entryDescription
+            arrEntryReportItems.add(KEntryReportItems(entry.entryDate.toString(), entry.entryHours.toString(), entry.entryDescription))
         }
-
-        arrEntryReportItems.add(KEntryReportItems(stringEntry))
     }
 }
 
 data class KEntryReportItems(
-    val entry: String,
+    val entryDate: String,
+    val entryHours: String,
+    val entryDescription: String
 )

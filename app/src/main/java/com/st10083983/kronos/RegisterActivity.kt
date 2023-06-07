@@ -27,7 +27,16 @@ class RegisterActivity : AppCompatActivity() {
             val username = edtxUsername.text.toString()
             val password = edtxPassword.text.toString()
 
-            handleRegister(username, password)
+            if (username.isEmpty() || password.isEmpty())
+            {
+                Toast.makeText(applicationContext,
+                    "Username and Password cannot be Empty.",
+                    Toast.LENGTH_SHORT).show()
+            }
+            else
+            {
+                handleRegister(username, password)
+            }
         }
 
         // Navigate to Login

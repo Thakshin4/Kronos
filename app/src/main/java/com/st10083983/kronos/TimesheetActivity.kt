@@ -72,9 +72,19 @@ class TimesheetActivity : AppCompatActivity() {
             val entryDescription = edtxEntryDescription.text.toString()
             val entryCategory = spinnerEntryCategory.selectedItem.toString()
 
-            // KTimesheet Object
-            val timesheetEntry = KTimesheet(dateFormat.parse(entryDate) as Date, entryHours, entryDescription, entryCategory)
-            handleEntryCreation(timesheetEntry)
+            if (entryDate.isEmpty() || entryDescription.isEmpty())
+            {
+                Toast.makeText(
+                    applicationContext,
+                    "Certain fields are Empty",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            else
+            {
+                val timesheetEntry = KTimesheet(dateFormat.parse(entryDate) as Date, entryHours, entryDescription, entryCategory)
+                handleEntryCreation(timesheetEntry)
+            }
         }
 
         // Back Button

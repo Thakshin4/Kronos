@@ -24,7 +24,8 @@ class EntryCustomAdapter(private val mList: List<KEntryReportItems>) : RecyclerV
         val KReportItems = mList[position]
 
         // sets the image to the textview from our itemHolder class
-        holder.category.text =  KReportItems.entry
+        val entryItem = "Date: " + KReportItems.entryDate + "\n" + "Hours Worked: " + KReportItems.entryHours + "\n" + "Description: " + KReportItems.entryDescription
+        holder.entry.text =  entryItem
     }
 
     // return the number of the items in the list
@@ -35,6 +36,6 @@ class EntryCustomAdapter(private val mList: List<KEntryReportItems>) : RecyclerV
 
     // Holds the views for adding it to image and text
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
-        val category: TextView = itemView.findViewById(R.id.item)
+        val entry: TextView = itemView.findViewById(R.id.item)
     }
 }
