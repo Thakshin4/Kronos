@@ -18,54 +18,52 @@ import java.util.Calendar
 var arrEntries = arrayListOf<KTimesheet>()
 
 class TimesheetActivity : AppCompatActivity() {
+    //Variables for DatePicker
     lateinit var pickDateBtn: Button
     lateinit var selectedDateTV: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_timesheet)
+
+        //Code For Date Picker
+        //______________________Code Attributon_____________________________
+        // The following code was taken from GeeksforGeeks:
+        // Author : chaitanyamunje
+        // Link : https://www.geeksforgeeks.org/datepicker-in-android/
         pickDateBtn = findViewById(R.id.idBtnPickDate)
         selectedDateTV = findViewById(R.id.idTVSelectedDate)
-        // on below line we are adding
-        // click listener for our button
         pickDateBtn.setOnClickListener {
-            // on below line we are getting
-            // the instance of our calendar.
             val c = Calendar.getInstance()
-
-            // on below line we are getting
-            // our day, month and year.
+            // Gets day, month and year.
             val year = c.get(Calendar.YEAR)
             val month = c.get(Calendar.MONTH)
             val day = c.get(Calendar.DAY_OF_MONTH)
-
-            // on below line we are creating a
-            // variable for date picker dialog.
+            // Sets variable for date picker dialog.
             val datePickerDialog = DatePickerDialog(
-                // on below line we are passing context.
                 this,
                 { view, year, monthOfYear, dayOfMonth ->
-                    // on below line we are setting
-                    // date to our text view.
+                    // Formats Date.
                     selectedDateTV.text =
                         (dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year)
                 },
-                // on below line we are passing year, month
-                // and day for the selected date in our date picker.
                 year,
                 month,
                 day
             )
-            // at last we are calling show
-            // to display our date picker dialog.
             datePickerDialog.show()
         }
+        //__________________________________________________________________
 
         // Spinner
+        //______________________Code Attributon_____________________________
+        // The following code was taken from GeeksforGeeks:
+        // Author : Praveenruhil
+        // Link : https://www.geeksforgeeks.org/spinner-in-kotlin/
         val arrCategoryNames = arrCategories.map { it.categoryName }
-
         val spinnerEntryCategory = findViewById<Spinner>(R.id.entry_category_spinner)
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, arrCategoryNames)
         spinnerEntryCategory.adapter = adapter
+        //__________________________________________________________________
 
         // Variables
         val edtxEntryDate = findViewById<EditText>(R.id.entry_date_input)
