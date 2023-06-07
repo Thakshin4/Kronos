@@ -3,8 +3,6 @@ package com.st10083983.kronos
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
@@ -24,7 +22,7 @@ class TimesheetActivity : AppCompatActivity() {
         // Spinner
         val arrCategoryNames = arrCategories.map { it.categoryName }
 
-        val spinnerEntryCategory = findViewById<Spinner>(R.id.entry_category_input)
+        val spinnerEntryCategory = findViewById<Spinner>(R.id.entry_category_spinner)
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, arrCategoryNames)
         spinnerEntryCategory.adapter = adapter
 
