@@ -48,13 +48,26 @@ class CategoryActivity : AppCompatActivity() {
     // Handles Category Creation
     private fun handleCreateCategory(category: KCategory)
     {
-        arrCategories.add(category)
+        val existingCategory = arrCategories.find { it.categoryName == category.categoryName }
 
-        Toast.makeText(
-            applicationContext,
-            "Category Created",
-            Toast.LENGTH_SHORT
-        ).show()
+        if (existingCategory != null)
+        {
+            Toast.makeText(
+                applicationContext,
+                "Category with same name already exists",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+        else
+        {
+            arrCategories.add(category)
+
+            Toast.makeText(
+                applicationContext,
+                "Category Created",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 }
 

@@ -57,11 +57,6 @@ class TimesheetActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-
-        // Spinner Code
-        // Search ArrayList for Specific Category
-        val searchCategory = "" // Pick from Spinner
-        val foundCategory = arrCategories.find { it.categoryName == searchCategory }
     }
 
     private fun handleEntryCreation(timesheetEntry:KTimesheet)

@@ -11,6 +11,10 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import java.util.Calendar
+import java.util.Date
+
+val arrReportItems = arrayListOf<KReportItems>()
 
 class ReportsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,34 +55,38 @@ class ReportsActivity : AppCompatActivity() {
                 handleReports(spinnerSelectablePeriod.selectedItem.toString())
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>?)
-            {
+            override fun onNothingSelected(p0: AdapterView<*>?) {
                 TODO("Not yet implemented")
             }
         }
-
-
-
     }
 
     fun handleReports(selectablePeriod: String)
     {
+        val calendar = Calendar.getInstance()
+        var period = calendar.time
+
         // Reports Logic
         when (selectablePeriod)
         {
             "7 Days" ->
             {
-                TODO()
+                calendar.add(Calendar.DAY_OF_YEAR, -7)
+                period = calendar.time
             }
             "14 Days" ->
             {
-                TODO()
+                calendar.add(Calendar.DAY_OF_YEAR, -14)
+                period = calendar.time
             }
             "30 Days" ->
             {
-                TODO()
+                calendar.add(Calendar.DAY_OF_YEAR, -30)
+                period = calendar.time
             }
         }
+
+        handleReportItems(period)
 
         // getting the recyclerview by its id
         val recyclerview = findViewById<RecyclerView>(R.id.reports_recyclerview)
@@ -87,12 +95,13 @@ class ReportsActivity : AppCompatActivity() {
         recyclerview.layoutManager = LinearLayoutManager(this)
 
         // ArrayList of class ItemsViewModel
-        val data = ArrayList<ItemsViewModel>()
+        val data = ArrayList<KReportItems>()
 
         // This loop will create 20 Views containing
         // the image with the count of view
-        for (i in 1..20) {
-            data.add(ItemsViewModel("", 0, ""))
+        for (item in arrReportItems)
+        {
+            data.add(item)
         }
 
         // This will pass the ArrayList to our Adapter
@@ -101,9 +110,32 @@ class ReportsActivity : AppCompatActivity() {
         // Setting the Adapter with the recyclerview
         recyclerview.adapter = adapter
     }
+
+    private fun handleReportItems(period: Date)
+    {
+        for (category in arrCategories)
+        {
+            var totalHoursWorked = 0
+            val arrEntriesInCategory = arrayListOf<KTimesheet>()
+
+            for (entry in arrEntries)
+            {
+                if (category.categoryName == entry.entryCategory)
+                {
+                    if (entry.entryDate.after(period))
+                    {
+                        arrEntriesInCategory.add(entry)
+                        totalHoursWorked += entry.entryHours
+                    }
+                }
+            }
+            arrReportItems.add(KReportItems(category.categoryName, totalHoursWorked, arrEntriesInCategory))
+        }
+    }
 }
 
-data class ItemsViewModel(val CategoryName: String, val HoursWorked: Int, val Entries: String)
-{
-    // CategoryName, HoursWorked, Entries
-}
+data class KReportItems(
+    val categoryName: String,
+    val entryHoursWorked: Int,
+    val timesheetEntries: ArrayList<KTimesheet>
+)
