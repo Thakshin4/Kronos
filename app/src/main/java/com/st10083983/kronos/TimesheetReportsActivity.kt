@@ -1,5 +1,6 @@
 package com.st10083983.kronos
 
+import EntryCustomAdapter
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -14,15 +15,15 @@ import androidx.recyclerview.widget.RecyclerView
 import java.util.Calendar
 import java.util.Date
 
-val arrReportItems = arrayListOf<KReportItems>()
+val arrEntryReportItems = arrayListOf<KEntryReportItems>()
 
-class ReportsActivity : AppCompatActivity() {
+class TimesheetReportsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_reports)
+        setContentView(R.layout.activity_timesheet_reports)
 
         // Back Button
-        val navBackHome = findViewById<Button>(R.id.reports_back_button)
+        val navBackHome = findViewById<Button>(R.id.timesheet_reports_back_button)
 
         navBackHome.setOnClickListener()
         {
@@ -33,7 +34,7 @@ class ReportsActivity : AppCompatActivity() {
 
         val selectablePeriods = arrayListOf<String>("7 Days", "14 Days", "30 Days")
 
-        val spinnerSelectablePeriod = findViewById<Spinner>(R.id.selectable_period_spinner)
+        val spinnerSelectablePeriod = findViewById<Spinner>(R.id.timesheet_selectable_period_spinner)
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, selectablePeriods)
         spinnerSelectablePeriod.adapter = adapter
 
@@ -95,17 +96,15 @@ class ReportsActivity : AppCompatActivity() {
         recyclerview.layoutManager = LinearLayoutManager(this)
 
         // ArrayList of class ItemsViewModel
-        val data = ArrayList<KReportItems>()
+        val data = ArrayList<KEntryReportItems>()
 
-        // This loop will create 20 Views containing
-        // the image with the count of view
-        for (item in arrReportItems)
+        for (item in arrEntryReportItems)
         {
             data.add(item)
         }
 
         // This will pass the ArrayList to our Adapter
-        val adapter = CustomAdapter(data)
+        val adapter = EntryCustomAdapter(data)
 
         // Setting the Adapter with the recyclerview
         recyclerview.adapter = adapter
@@ -113,29 +112,16 @@ class ReportsActivity : AppCompatActivity() {
 
     private fun handleReportItems(period: Date)
     {
-        for (category in arrCategories)
+        var stringEntry = ""
+        for (entry in arrEntries)
         {
-            var totalHoursWorked = 0
-            val arrEntriesInCategory = arrayListOf<KTimesheet>()
-
-            for (entry in arrEntries)
-            {
-                if (category.categoryName == entry.entryCategory)
-                {
-                    if (entry.entryDate.after(period))
-                    {
-                        arrEntriesInCategory.add(entry)
-                        totalHoursWorked += entry.entryHours
-                    }
-                }
-            }
-            arrReportItems.add(KReportItems(category.categoryName, totalHoursWorked, arrEntriesInCategory))
+            stringEntry = "Date: " + entry.entryDate + "\n" + "Hours Worked: " + entry.entryHours + "\n" + "Description: " + entry.entryDescription
         }
+
+        arrEntryReportItems.add(KEntryReportItems(stringEntry))
     }
 }
 
-data class KReportItems(
-    val categoryName: String,
-    val entryHoursWorked: Int,
-    val timesheetEntries: ArrayList<KTimesheet>
+data class KEntryReportItems(
+    val entry: String,
 )

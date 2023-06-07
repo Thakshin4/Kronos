@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Kronos"
         tools:targetApi="31">
         <activity
+            android:name=".TimesheetReportsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ReportsActivity"
             android:exported="false" />
         <activity

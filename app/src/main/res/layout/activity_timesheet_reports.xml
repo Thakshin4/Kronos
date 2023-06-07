@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ReportsActivity">
+    tools:context=".TimesheetReportsActivity">
 
     <Button
-        android:id="@+id/reports_back_button"
+        android:id="@+id/timesheet_reports_back_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -21,13 +21,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="120dp"
-        android:text="Reports"
+        android:text="Timesheet Entries"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/reports_recyclerview"
+        android:id="@+id/timesheet_reports_recyclerview"
         android:layout_width="360dp"
         android:layout_height="480dp"
         android:layout_marginBottom="40dp"
@@ -37,11 +37,11 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Spinner
-        android:id="@+id/selectable_period_spinner"
+        android:id="@+id/timesheet_selectable_period_spinner"
         android:layout_width="210dp"
         android:layout_height="47dp"
         android:spinnerMode="dropdown"
-        app:layout_constraintBottom_toTopOf="@+id/reports_recyclerview"
+        app:layout_constraintBottom_toTopOf="@+id/timesheet_reports_recyclerview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView16" />

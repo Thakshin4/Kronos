@@ -17,21 +17,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/entry_date_input"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
-        android:ems="10"
-        android:inputType="date"
-        app:layout_constraintBottom_toTopOf="@+id/entry_hours_input"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
         android:id="@+id/entry_hours_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="40dp"
         android:ems="10"
         android:inputType="number"
         app:layout_constraintBottom_toTopOf="@+id/entry_description_input"
@@ -42,7 +31,7 @@
         android:id="@+id/entry_description_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="40dp"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
@@ -98,42 +87,44 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/idTVSelectedDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/idBtnPickDate"
+        android:id="@+id/entry_date_input"
+        android:layout_width="210dp"
+        android:layout_height="43dp"
+        android:layout_above="@id/pick_date_button"
         android:layout_centerInParent="true"
         android:layout_margin="20dp"
-        android:layout_marginTop="47dp"
+        android:layout_marginBottom="40dp"
         android:gravity="center"
         android:padding="10dp"
         android:text="Date"
         android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/idBtnPickDate"
+        app:layout_constraintBottom_toTopOf="@+id/pick_date_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/idBtnPickDate"
-        android:layout_width="match_parent"
+        android:id="@+id/pick_date_button"
+        android:layout_width="210dp"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_margin="20dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginTop="80dp"
         android:text="Pick Date"
         android:textAllCaps="false"
-        app:layout_constraintBottom_toTopOf="@+id/entry_date_input"
+        app:layout_constraintBottom_toTopOf="@+id/entry_description_input"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
     <Spinner
         android:id="@+id/entry_category_spinner"
         android:layout_width="210dp"
         android:layout_height="47dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="40dp"
         android:spinnerMode="dropdown"
         app:layout_constraintBottom_toTopOf="@+id/create_entry_button"
         app:layout_constraintEnd_toEndOf="parent"
