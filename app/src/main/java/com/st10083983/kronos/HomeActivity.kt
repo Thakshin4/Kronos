@@ -22,8 +22,6 @@ class HomeActivity : AppCompatActivity()
             finish()
         }
 
-        // Testing
-
         // Navigate to Timesheet
         val navTimesheet = findViewById<Button>(R.id.nav_timesheet_button)
 
@@ -34,15 +32,24 @@ class HomeActivity : AppCompatActivity()
             finish()
         }
 
-        // Navigate to Reports
-        val navReports = findViewById<Button>(R.id.nav_reports_button)
+        // Navigate to Category Reports
+        val navCategoryReports = findViewById<Button>(R.id.nav_category_reports_button)
 
-        navReports.setOnClickListener()
+        navCategoryReports.setOnClickListener()
         {
-            val intent = Intent(this, ReportsActivity::class.java)
+            val intent = Intent(this, CategoryReportsActivity::class.java)
             startActivity(intent)
             finish()
         }
 
+        // Navigate to Category Reports
+        val navEntryReports = findViewById<Button>(R.id.nav_timesheet_reports_button)
+
+        navEntryReports.setOnClickListener()
+        {
+            val intent = Intent(this, TimesheetReportsActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 }

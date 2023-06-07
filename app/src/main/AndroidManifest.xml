@@ -16,7 +16,7 @@
             android:name=".TimesheetReportsActivity"
             android:exported="false" />
         <activity
-            android:name=".ReportsActivity"
+            android:name=".CategoryReportsActivity"
             android:exported="false" />
         <activity
             android:name=".TimesheetActivity"
