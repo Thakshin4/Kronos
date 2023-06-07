@@ -2,6 +2,9 @@
 
 Welcome to Kronos, a powerful and user-friendly time tracking app designed to help individuals and businesses increase productivity. This README provides detailed information about the Kronos app, its features, installation, and basic usage.
 
+Check Out the Demonstration Video here:
+https://youtu.be/-LmLe6x9LY0
+
 ## Table of Contents
 
 - [Introduction](#introduction)
