@@ -21,7 +21,7 @@ class TimerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_timer)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_timer)
 
         val timer = findViewById<Button>(R.id.timer_button)
         timer.setOnClickListener{
