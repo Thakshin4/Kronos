@@ -51,5 +51,15 @@ class HomeActivity : AppCompatActivity()
             startActivity(intent)
             finish()
         }
+
+        // Navigate to Timer
+        val navTimer = findViewById<Button>(R.id.nav_timer_button)
+
+        navTimer.setOnClickListener()
+        {
+            val intent = Intent(this, TimerActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 }
