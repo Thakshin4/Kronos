@@ -16,8 +16,11 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 
 class TimerActivity : AppCompatActivity() {
+
+    // Variables
     private var pomodoroTimer: CountDownTimer? = null
     private var timerRunning = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_timer)
         super.onCreate(savedInstanceState)
@@ -48,6 +51,7 @@ class TimerActivity : AppCompatActivity() {
 
     }
 
+    // Starts the Timer
     private fun startTimer() {
         val timer = findViewById<Button>(R.id.timer_button)
         val timerText = findViewById<TextView>(R.id.timer_text_view)
@@ -78,6 +82,8 @@ class TimerActivity : AppCompatActivity() {
         }
         pomodoroTimer?.start()
     }
+
+    // Shows Notification
     private fun showNotification() {
         val builder = NotificationCompat.Builder(this@TimerActivity, "pomodoro_channel")
            // .setSmallIcon(R.drawable.CHRONOS)
@@ -105,6 +111,8 @@ class TimerActivity : AppCompatActivity() {
         }
         notificationManager.notify(0, builder.build())
     }
+
+    // Starts Break Timer
     private fun startBreakTimer() {
         val timer = findViewById<Button>(R.id.timer_button)
         val timerLength : Long = 5 * 60 * 1000
@@ -129,5 +137,4 @@ class TimerActivity : AppCompatActivity() {
         }
         pomodoroTimer?.start()
     }
-
 }

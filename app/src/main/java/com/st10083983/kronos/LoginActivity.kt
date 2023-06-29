@@ -6,16 +6,18 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity()
 {
+    private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
         // Variables
-        val edtxUsername = findViewById<EditText>(R.id.login_username_input)
+        val edtxEmail = findViewById<EditText>(R.id.login_username_input)
         val edtxPassword = findViewById<EditText>(R.id.login_password_input)
 
         // Login
@@ -23,10 +25,10 @@ class LoginActivity : AppCompatActivity()
 
         navHome.setOnClickListener()
         {
-            val username = edtxUsername.text.toString()
+            val email = edtxEmail.text.toString()
             val password = edtxPassword.text.toString()
 
-            handleLogin(username, password)
+            handleLogin(email, password)
         }
 
         // Navigate to Register
@@ -40,25 +42,43 @@ class LoginActivity : AppCompatActivity()
         }
     }
 
-    private fun handleLogin(username: String, password: String)
+    private fun handleLogin(email: String, password: String)
     {
         // Debug Login
-        mapExistingUsers["Name"] = "Pass"
-
-        // --- Login Logic Here ---
-        if (mapExistingUsers.containsKey(username) && mapExistingUsers[username] == password)
+        if (email == "0" && password == "0")
         {
             // Navigate to Home
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
             finish()
         }
-        else
-        {
-            // Incorrect Details
-            Toast.makeText(applicationContext,
-                "Username or Password is incorrect." + mapExistingUsers["Name"] + password,
-                Toast.LENGTH_SHORT).show()
+
+        // --- Login Logic Here ---
+        if(email.isEmpty())
+        { Toast.makeText(this, "Enter email", Toast.LENGTH_SHORT).show()}
+
+        if(password.isEmpty())
+        { Toast.makeText(this, "Enter password", Toast.LENGTH_SHORT).show() }
+
+        // Sign In
+        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this)
+        { task ->
+            if (task.isSuccessful)
+            {
+                // Sign in success, update UI with the signed-in user's information
+                //Log.d(TAG, "signInWithEmail:success")
+                //val user = auth.currentUser
+                Toast.makeText(baseContext,"Authentication successful.", Toast.LENGTH_SHORT).show()
+                setContentView(R.layout.activity_home)
+                //updateUI(user)
+            }
+            else
+            {
+                // If sign in fails, display a message to the user.
+                //Log.w(TAG, "signInWithEmail:failure", task.exception)
+                Toast.makeText(baseContext,"Authentication failed.", Toast.LENGTH_SHORT).show()
+                //updateUI(null)
+            }
         }
     }
 }
