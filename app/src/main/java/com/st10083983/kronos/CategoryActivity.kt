@@ -114,22 +114,14 @@ class CategoryActivity : AppCompatActivity() {
         // Get the current user's UID
         val uid = FirebaseAuth.getInstance().currentUser?.uid
 
-        // Create a new category
-        val category = Category("Category Name", 8, 4)
-
-        // Create a new timesheet
-        val timesheet = Timesheet("2023-06-28", 6, "Worked on project XYZ", "category_id")
-
         // Create a database reference to the "users" node in the database
         val usersRef = FirebaseDatabase.getInstance().getReference("users")
 
         // Write the new category and timesheet to the database under the user's node
-        val categoryKey = usersRef.child(uid).child("categories").push().key
-        val timesheetKey = usersRef.child(uid).child("timesheets").push().key
+        val categoryKey = usersRef.child(uid!!).child("categories").push().key
 
         val childUpdates = HashMap<String, Any>()
         childUpdates["$uid/categories/$categoryKey"] = category
-        childUpdates["$uid/timesheets/$timesheetKey"] = timesheet
 
         usersRef.updateChildren(childUpdates)
             .addOnSuccessListener {

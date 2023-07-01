@@ -2,20 +2,17 @@ package com.st10083983.kronos
 
 import CategoryCustomAdapter
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.Button
-import android.widget.Spinner
-import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import java.util.Calendar
-import java.util.Date
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 
-val arrCategoryReportItems = arrayListOf<KCategoryReportItems>()
+val arrCategoryReportItems = arrayListOf<CategoryReportItems>()
 
 class CategoryReportsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,7 +43,7 @@ class CategoryReportsActivity : AppCompatActivity() {
         recyclerview.layoutManager = LinearLayoutManager(this)
 
         // ArrayList of class ItemsViewModel
-        val data = ArrayList<KCategoryReportItems>()
+        val data = ArrayList<CategoryReportItems>()
         data.clear() // Clear RecyclerView Test
 
         for (item in arrCategoryReportItems)
@@ -63,25 +60,49 @@ class CategoryReportsActivity : AppCompatActivity() {
 
     private fun handleReportItems()
     {
-        for (category in arrCategories)
-        {
-            var totalHoursWorked = 0
-            val arrEntriesInCategory = arrayListOf<KTimesheet>()
+        // Get the current user's UID
+        val uid = FirebaseAuth.getInstance().currentUser?.uid
 
-            for (entry in arrEntries)
-            {
-                if (category.categoryName == entry.entryCategory)
-                {
-                    arrEntriesInCategory.add(entry)
-                    totalHoursWorked += entry.entryHours
+        // Create a database reference to the "users" node in the database
+        val usersRef = FirebaseDatabase.getInstance().getReference("users")
+
+        // Read the user's categories and timesheets from the database
+        usersRef.child(uid!!).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val categoryHoursMap = mutableMapOf<String, Int>()
+
+                val categoriesSnapshot = dataSnapshot.child("categories")
+                val timesheetsSnapshot = dataSnapshot.child("timesheets")
+
+                // Calculate total hours worked for each category
+                for (categorySnapshot in categoriesSnapshot.children) {
+                    val categoryId = categorySnapshot.key
+                    val categoryName = categorySnapshot.child("name").getValue(String::class.java)
+                    val maxHours = categorySnapshot.child("maxHours").getValue(Int::class.java)
+                    val minHours = categorySnapshot.child("minHours").getValue(Int::class.java)
+
+                    var totalHoursWorked = 0
+
+                    for (timesheetSnapshot in timesheetsSnapshot.children) {
+                        if (timesheetSnapshot.child("categoryId").getValue(String::class.java) == categoryId) {
+                            val hoursWorked = timesheetSnapshot.child("hoursWorked").getValue(Int::class.java)
+                            totalHoursWorked += hoursWorked ?: 0
+                        }
+                    }
+
+                    // Store the total hours worked for the category
+                    categoryHoursMap[categoryName!!] = totalHoursWorked
+                }
+
+                // Print the total hours worked for each category
+                for ((categoryName, totalHours) in categoryHoursMap) {
+                    arrCategoryReportItems.add(CategoryReportItems(categoryName, totalHours))
                 }
             }
-            arrCategoryReportItems.add(KCategoryReportItems(category.categoryName, totalHoursWorked))
-        }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // An error occurred while reading the data
+            }
+        })
     }
 }
-
-data class KCategoryReportItems(
-    val categoryName: String,
-    val totalEntryHoursWorked: Int
-)

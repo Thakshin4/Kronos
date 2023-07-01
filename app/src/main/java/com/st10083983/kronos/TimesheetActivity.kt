@@ -11,12 +11,12 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 import java.util.Date
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
-// ArrayList of KTimesheet Objects
-var arrEntries = arrayListOf<KTimesheet>()
 
 class TimesheetActivity : AppCompatActivity() {
 
@@ -27,6 +27,12 @@ class TimesheetActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_timesheet)
+
+        // Get the current user's UID
+        val uid = FirebaseAuth.getInstance().currentUser?.uid
+
+        // Create a database reference to the "users" node in the database
+        val usersRef = FirebaseDatabase.getInstance().getReference("users")
 
         // Date Picker
         pickerSelectDate = findViewById(R.id.pick_date_button)
@@ -49,8 +55,29 @@ class TimesheetActivity : AppCompatActivity() {
             datePickerDialog.show()
         }
 
+        val categoryNames = mutableListOf<String>()
+
+        // Read the user's categories from the database
+        usersRef.child(uid!!).child("categories").addListenerForSingleValueEvent(object :
+            ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                for (categorySnapshot in dataSnapshot.children) {
+                    val category = categorySnapshot.getValue(Category::class.java)
+                    category?.let {
+                        val categoryName = category.name
+                        categoryNames.add(categoryName)
+                    }
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // An error occurred while reading the data
+            }
+        })
+
         // Spinner
-        val arrCategoryNames = arrCategories.map { it.categoryName }
+        val arrCategoryNames = arrCategories.map { it.name }
 
         val spinnerEntryCategory = findViewById<Spinner>(R.id.entry_category_spinner)
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, arrCategoryNames)
@@ -82,8 +109,8 @@ class TimesheetActivity : AppCompatActivity() {
             }
             else
             {
-                val timesheetEntry = KTimesheet(dateFormat.parse(entryDate) as Date, entryHours, entryDescription, entryCategory)
-                handleEntryCreation(timesheetEntry)
+                val timesheetEntry = Timesheet(dateFormat.parse(entryDate) as Date, entryHours, entryDescription, entryCategory)
+                handleCreateEntry(timesheetEntry)
             }
         }
 
@@ -98,21 +125,27 @@ class TimesheetActivity : AppCompatActivity() {
         }
     }
 
-    private fun handleEntryCreation(timesheetEntry:KTimesheet)
+    // Handles Category Creation
+    private fun handleCreateEntry(timesheet: Timesheet)
     {
-        arrEntries.add(timesheetEntry)
+        // Get the current user's UID
+        val uid = FirebaseAuth.getInstance().currentUser?.uid
 
-        Toast.makeText(
-            applicationContext,
-            "Timesheet Entry Created",
-            Toast.LENGTH_SHORT
-        ).show()
+        // Create a database reference to the "users" node in the database
+        val usersRef = FirebaseDatabase.getInstance().getReference("users")
+
+        // Write the new category and timesheet to the database under the user's node
+        val timesheetKey = usersRef.child(uid!!).child("timesheets").push().key
+
+        val childUpdates = HashMap<String, Any>()
+        childUpdates["$uid/timesheets/$timesheetKey"] = timesheet
+
+        usersRef.updateChildren(childUpdates)
+            .addOnSuccessListener {
+                // Category and timesheet data successfully written to the database
+            }
+            .addOnFailureListener { e ->
+                // An error occurred while writing the data
+            }
     }
 }
-
-data class KTimesheet(
-    val entryDate: Date,
-    val entryHours: Int,
-    val entryDescription: String,
-    val entryCategory: String
-)

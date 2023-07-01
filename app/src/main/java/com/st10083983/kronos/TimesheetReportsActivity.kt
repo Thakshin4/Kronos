@@ -14,8 +14,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import java.util.Calendar
 import java.util.Date
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 
-val arrEntryReportItems = arrayListOf<KEntryReportItems>()
+val arrEntryReportItems = arrayListOf<TimesheetReportItems>()
 
 class TimesheetReportsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -100,7 +102,7 @@ class TimesheetReportsActivity : AppCompatActivity() {
         recyclerview.layoutManager = LinearLayoutManager(this)
 
         // ArrayList of class ItemsViewModel
-        val data = ArrayList<KEntryReportItems>()
+        val data = ArrayList<TimesheetReportItems>()
         data.clear() // Clear RecyclerView Test
 
         for (item in arrEntryReportItems)
@@ -117,24 +119,41 @@ class TimesheetReportsActivity : AppCompatActivity() {
 
     private fun handleReportItems(period: Date)
     {
-//        for (entry in arrEntries)
-//        {
-//            if (entry.entryDate.after(period))
-//            {
-//                arrEntryReportItems.add(KEntryReportItems(entry.entryDate.toString(), entry.entryHours.toString(), entry.entryDescription))
-//            }
-//
-//        }
-        for (entry in arrEntries)
-        {
-            arrEntryReportItems.add(KEntryReportItems(entry.entryCategory, entry.entryDate.toString(), entry.entryHours.toString(), entry.entryDescription))
-        }
+        // Get the current user's UID
+        val uid = FirebaseAuth.getInstance().currentUser?.uid
+
+        // Create a database reference to the "users" node in the database
+        val usersRef = FirebaseDatabase.getInstance().getReference("users")
+
+        // Read the user's timesheets from the database
+        usersRef.child(uid!!).child("timesheets").addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val timesheets = mutableListOf<Timesheet>()
+
+                for (timesheetSnapshot in dataSnapshot.children) {
+                    val timesheet = timesheetSnapshot.getValue(Timesheet::class.java)
+                    timesheet?.let {
+                        timesheets.add(timesheet)
+                    }
+                }
+
+                // Process the timesheets
+                for (timesheet in timesheets) {
+                    println("Date: ${timesheet.date}")
+                    println("Hours Worked: ${timesheet.hoursWorked}")
+                    println("Description: ${timesheet.description}")
+                    println("Category Name: ${timesheet.categoryName}")
+                    println()
+
+                    arrEntryReportItems.add(TimesheetReportItems(timesheet.categoryName, timesheet.date.toString(), timesheet.hoursWorked.toString(), timesheet.description))
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // An error occurred while reading the data
+            }
+        })
     }
 }
 
-data class KEntryReportItems(
-    val entryCategory: String,
-    val entryDate: String,
-    val entryHours: String,
-    val entryDescription: String
-)
+
