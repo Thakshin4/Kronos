@@ -3,10 +3,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.st10083983.kronos.KEntryReportItems
+import com.st10083983.kronos.TimesheetReportItems
 import com.st10083983.kronos.R
 
-class EntryCustomAdapter(private val mList: List<KEntryReportItems>) : RecyclerView.Adapter<EntryCustomAdapter.ViewHolder>() {
+class EntryCustomAdapter(private val mList: List<TimesheetReportItems>) : RecyclerView.Adapter<EntryCustomAdapter.ViewHolder>() {
 
     // create new views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

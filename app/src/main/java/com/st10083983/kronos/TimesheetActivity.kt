@@ -17,9 +17,10 @@ import java.util.Date
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
+// ArrayList of KCategory Objects
+var categories = mutableListOf<Category>()
 
 class TimesheetActivity : AppCompatActivity() {
-
 
     private lateinit var pickerSelectDate: Button
     private lateinit var textSelectedDate: TextView
@@ -33,6 +34,8 @@ class TimesheetActivity : AppCompatActivity() {
 
         // Create a database reference to the "users" node in the database
         val usersRef = FirebaseDatabase.getInstance().getReference("users")
+
+        readCategories()
 
         // Date Picker
         pickerSelectDate = findViewById(R.id.pick_date_button)
@@ -77,7 +80,7 @@ class TimesheetActivity : AppCompatActivity() {
         })
 
         // Spinner
-        val arrCategoryNames = arrCategories.map { it.name }
+        val arrCategoryNames = categories.map { it.name }
 
         val spinnerEntryCategory = findViewById<Spinner>(R.id.entry_category_spinner)
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, arrCategoryNames)
@@ -125,7 +128,7 @@ class TimesheetActivity : AppCompatActivity() {
         }
     }
 
-    // Handles Category Creation
+    // Handles Entry Creation
     private fun handleCreateEntry(timesheet: Timesheet)
     {
         // Get the current user's UID
@@ -147,5 +150,33 @@ class TimesheetActivity : AppCompatActivity() {
             .addOnFailureListener { e ->
                 // An error occurred while writing the data
             }
+    }
+
+    // Read Categories
+    private fun readCategories()
+    {
+        // Get the current user's UID
+        val uid = FirebaseAuth.getInstance().currentUser?.uid
+
+        // Create a database reference to the "users" node in the database
+        val usersRef = FirebaseDatabase.getInstance().getReference("users")
+
+        // Read the user's categories from the database
+        usersRef.child(uid!!).child("categories").addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                for (categorySnapshot in dataSnapshot.children) {
+                    val category = categorySnapshot.getValue(Category::class.java)
+                    category?.let {
+                        categories.add(category)
+                    }
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // An error occurred while reading the data
+            }
+        })
+
     }
 }

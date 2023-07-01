@@ -15,6 +15,9 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
+        // Create an instance of FirebaseAuth
+        auth = FirebaseAuth.getInstance()
+
         // Variables
         val edtxEmail = findViewById<EditText>(R.id.register_username_input)
         val edtxPassword = findViewById<EditText>(R.id.register_password_input)

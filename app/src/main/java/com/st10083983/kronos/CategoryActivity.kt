@@ -14,8 +14,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.*
 
-// ArrayList of KCategory Objects
-var arrCategories = arrayListOf<Category>()
+
 
 class CategoryActivity : AppCompatActivity() {
 
@@ -31,8 +30,6 @@ class CategoryActivity : AppCompatActivity() {
         setContentView(R.layout.activity_category)
 
         database = FirebaseDatabase.getInstance().reference
-
-        readEntireDatabase()
 
         // Variables
         val edtxCategoryName = findViewById<EditText>(R.id.category_name_input)
@@ -71,40 +68,6 @@ class CategoryActivity : AppCompatActivity() {
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
             finish()
-        }
-    }
-
-    private fun readEntireDatabase()
-    {
-        // Read the user's data from the database
-        if (uid != null) {
-            usersRef.child(uid).addListenerForSingleValueEvent(object : ValueEventListener
-            {
-                override fun onDataChange(dataSnapshot: DataSnapshot)
-                {
-                    if (dataSnapshot.exists())
-                    {
-                        // User data found in the database
-                        val user: User? = dataSnapshot.getValue(User::class.java)
-                        if (user != null) {
-                            // Access the user's categories and timesheets
-                            val categories: Map<String, Category> = user.categories
-                            val timesheets: Map<String, Timesheet> = user.timesheets
-
-                            // Do something with the data
-                            // ...
-                        }
-                    } else
-                    {
-                        // User data not found in the database
-                    }
-                }
-
-                override fun onCancelled(databaseError: DatabaseError)
-                {
-                    // An error occurred while reading the data
-                }
-            })
         }
     }
 

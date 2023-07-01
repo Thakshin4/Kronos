@@ -16,6 +16,9 @@ class LoginActivity : AppCompatActivity()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        // Create an instance of FirebaseAuth
+        auth = FirebaseAuth.getInstance()
+
         // Variables
         val edtxEmail = findViewById<EditText>(R.id.login_username_input)
         val edtxPassword = findViewById<EditText>(R.id.login_password_input)
@@ -69,7 +72,10 @@ class LoginActivity : AppCompatActivity()
                 //Log.d(TAG, "signInWithEmail:success")
                 //val user = auth.currentUser
                 Toast.makeText(baseContext,"Authentication successful.", Toast.LENGTH_SHORT).show()
-                setContentView(R.layout.activity_home)
+                // Navigate to Home
+                val intent = Intent(this, HomeActivity::class.java)
+                startActivity(intent)
+                finish()
                 //updateUI(user)
             }
             else
