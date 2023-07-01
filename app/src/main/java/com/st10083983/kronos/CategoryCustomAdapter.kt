@@ -1,7 +1,10 @@
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.st10083983.kronos.CategoryReportItems
 import com.st10083983.kronos.R
@@ -19,6 +22,7 @@ class CategoryCustomAdapter(private val mList: List<CategoryReportItems>) : Recy
     }
 
     // binds the list items to a view
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val reportItems = mList[position]
@@ -26,6 +30,9 @@ class CategoryCustomAdapter(private val mList: List<CategoryReportItems>) : Recy
         // sets the image to the textview from our itemHolder class
         val categoryItem = "Category: " + reportItems.categoryName + "\n" + "Total Hours: " + reportItems.totalEntryHoursWorked
         holder.category.text =  categoryItem
+        holder.progress.min = reportItems.minHours!!
+        holder.progress.max = reportItems.maxHours!!
+        holder.progress.progress = reportItems.totalEntryHoursWorked
     }
 
     // return the number of the items in the list
@@ -37,5 +44,6 @@ class CategoryCustomAdapter(private val mList: List<CategoryReportItems>) : Recy
     // Holds the views for adding it to image and text
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
         val category: TextView = itemView.findViewById(R.id.item)
+        val progress: ProgressBar = itemView.findViewById(R.id.category_progress)
     }
 }

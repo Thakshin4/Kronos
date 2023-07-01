@@ -24,10 +24,15 @@ data class Timesheet(
     val hoursWorked: Int,
     val description: String,
     val categoryName: String
-)
+){
+    // Add a no-argument constructor
+    constructor() : this(Date(0, 0, 0), 0, "", "")
+}
 
 data class CategoryReportItems(
-    val categoryName: String,
+    val categoryName: String?,
+    val maxHours: Int?,
+    val minHours: Int?,
     val totalEntryHoursWorked: Int
 )
 

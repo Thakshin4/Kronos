@@ -67,15 +67,17 @@ class CategoryReportsActivity : AppCompatActivity() {
         val usersRef = FirebaseDatabase.getInstance().getReference("users")
 
         // Read the user's categories and timesheets from the database
-        usersRef.child(uid!!).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val categoryHoursMap = mutableMapOf<String, Int>()
+        usersRef.child(uid!!).addListenerForSingleValueEvent(object : ValueEventListener
+        {
+            override fun onDataChange(dataSnapshot: DataSnapshot)
+            {
 
                 val categoriesSnapshot = dataSnapshot.child("categories")
                 val timesheetsSnapshot = dataSnapshot.child("timesheets")
 
                 // Calculate total hours worked for each category
-                for (categorySnapshot in categoriesSnapshot.children) {
+                for (categorySnapshot in categoriesSnapshot.children)
+                {
                     val categoryId = categorySnapshot.key
                     val categoryName = categorySnapshot.child("name").getValue(String::class.java)
                     val maxHours = categorySnapshot.child("maxHours").getValue(Int::class.java)
@@ -91,12 +93,7 @@ class CategoryReportsActivity : AppCompatActivity() {
                     }
 
                     // Store the total hours worked for the category
-                    categoryHoursMap[categoryName!!] = totalHoursWorked
-                }
-
-                // Print the total hours worked for each category
-                for ((categoryName, totalHours) in categoryHoursMap) {
-                    arrCategoryReportItems.add(CategoryReportItems(categoryName, totalHours))
+                    arrCategoryReportItems.add(CategoryReportItems(categoryName, maxHours, minHours, totalHoursWorked))
                 }
             }
 
