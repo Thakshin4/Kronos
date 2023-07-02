@@ -61,5 +61,15 @@ class HomeActivity : AppCompatActivity()
             startActivity(intent)
             finish()
         }
+
+        // Navigate to Timer
+        val navGraphReport = findViewById<Button>(R.id.nav_reports_button)
+
+        navGraphReport.setOnClickListener()
+        {
+            val intent = Intent(this, GraphReportsActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 }

@@ -16,7 +16,7 @@
         android:theme="@style/Theme.Kronos"
         tools:targetApi="31">
         <activity
-            android:name=".ShopActivity"
+            android:name=".GraphReportsActivity"
             android:exported="false" />
         <activity
             android:name=".TimerActivity"
