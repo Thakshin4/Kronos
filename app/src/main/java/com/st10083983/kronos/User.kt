@@ -42,3 +42,8 @@ data class TimesheetReportItems(
     val entryHours: String,
     val entryDescription: String
 )
+
+data class DataPoint(
+    val x: Int,
+    val y: Int
+)
