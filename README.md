@@ -20,7 +20,7 @@ Kronos is a time tracking app developed using Android Studio. Its primary purpos
 ## Features
 
 1. *User Authentication*: Create an account and log in securely.
-2. *Customizable Activity Tracking*: Track time spent on different activities and create custom activities.
+2. *Pomodoro Timer*: Efficiently manage your work sessions with the built-in Pomodoro Timer, allowing you to stay focused and productive.
 3. *Task Management*: Assign tasks to activities and track time spent on each task.
 4. *Category Creation*: Create categories to group timesheet entries.
 5. *Daily Goal Setting*: Set minimum and maximum daily work hour goals.
