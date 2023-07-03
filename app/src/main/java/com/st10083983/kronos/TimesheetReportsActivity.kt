@@ -128,7 +128,9 @@ class TimesheetReportsActivity : AppCompatActivity() {
         // Read the user's timesheets from the database
         usersRef.child(uid!!).child("timesheets").addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
+
                 val timesheets = mutableListOf<Timesheet>()
+                arrEntryReportItems.clear()
 
                 for (timesheetSnapshot in dataSnapshot.children) {
                     val timesheet = timesheetSnapshot.getValue(Timesheet::class.java)

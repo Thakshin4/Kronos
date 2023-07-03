@@ -74,6 +74,7 @@ class CategoryReportsActivity : AppCompatActivity() {
 
                 val categoriesSnapshot = dataSnapshot.child("categories")
                 val timesheetsSnapshot = dataSnapshot.child("timesheets")
+                arrCategoryReportItems.clear()
 
                 // Calculate total hours worked for each category
                 for (categorySnapshot in categoriesSnapshot.children)
