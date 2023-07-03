@@ -47,6 +47,9 @@ To install and run the Kronos app, follow these steps:
 5. Set and track daily goals to stay productive.
 6. Backup your data regularly to prevent data loss.
 
+## Firebase Realtime Database
+![image](https://github.com/Thakshin4/Kronos/assets/69991863/8d6ecb37-d540-4571-aaf7-0c4a9a9dc586)
+
 ## Feedback and Support
 
 We value your feedback and are here to provide support. If you encounter any issues, have suggestions, or need assistance, please reach out to our support team via email at support@kronosapp.com or through our in-app chat support. We appreciate your input and are committed to continually improving the Kronos app based on your feedback.
