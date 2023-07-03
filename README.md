@@ -45,7 +45,8 @@ To install and run the Kronos app, follow these steps:
 3. Start tracking your time by creating timesheet entries with the necessary details.
 4. View your timesheet entries and categorize them.
 5. Set and track daily goals to stay productive.
-6. Backup your data regularly to prevent data loss.
+6. Manage yout time with Pomodoro Timer.
+7. View Reports of your weekly activity.
 
 ## Firebase Realtime Database
 ![image](https://github.com/Thakshin4/Kronos/assets/69991863/8d6ecb37-d540-4571-aaf7-0c4a9a9dc586)
