@@ -25,7 +25,8 @@ Kronos is a time tracking app developed using Android Studio. Its primary purpos
 4. *Category Creation*: Create categories to group timesheet entries.
 5. *Daily Goal Setting*: Set minimum and maximum daily work hour goals.
 6. *Timesheet Entry Viewing*: View a list of timesheet entries.
-7. *Offline Mode*: Continue tracking work hours without an internet connection and sync data later.
+7. *Progress Bar*: Visualize your work progress with a dynamic progress bar, keeping you motivated and aware of your accomplishments.
+8. *Reporting*: Generate comprehensive reports that summarize your timesheet entries, task assignments, and time spent on each activity, providing valuable insights into your productivity and performance.
 
 ## Installation
 
