@@ -74,7 +74,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
-        android:text="Description:"
+        android:text="Category:"
         app:layout_constraintBottom_toTopOf="@+id/entry_category_spinner"
         app:layout_constraintStart_toStartOf="parent" />
 

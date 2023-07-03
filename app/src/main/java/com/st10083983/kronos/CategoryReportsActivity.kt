@@ -86,7 +86,7 @@ class CategoryReportsActivity : AppCompatActivity() {
                     var totalHoursWorked = 0
 
                     for (timesheetSnapshot in timesheetsSnapshot.children) {
-                        if (timesheetSnapshot.child("categoryId").getValue(String::class.java) == categoryId) {
+                        if (timesheetSnapshot.child("categoryName").getValue(String::class.java) == categoryName) {
                             val hoursWorked = timesheetSnapshot.child("hoursWorked").getValue(Int::class.java)
                             totalHoursWorked += hoursWorked ?: 0
                         }
