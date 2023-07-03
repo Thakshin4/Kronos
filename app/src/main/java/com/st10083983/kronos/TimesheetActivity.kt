@@ -164,7 +164,7 @@ class TimesheetActivity : AppCompatActivity() {
         // Read the user's categories from the database
         usersRef.child(uid!!).child("categories").addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-
+                categories.clear()
                 for (categorySnapshot in dataSnapshot.children) {
                     val category = categorySnapshot.getValue(Category::class.java)
                     category?.let {

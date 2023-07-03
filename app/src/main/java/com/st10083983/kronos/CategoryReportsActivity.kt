@@ -2,15 +2,14 @@ package com.st10083983.kronos
 
 import CategoryCustomAdapter
 import android.content.Intent
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+
 
 val arrCategoryReportItems = arrayListOf<CategoryReportItems>()
 
@@ -52,8 +51,7 @@ class CategoryReportsActivity : AppCompatActivity() {
         }
 
         // This will pass the ArrayList to our Adapter
-        val adapter = CategoryCustomAdapter(data)
-
+        var adapter = CategoryCustomAdapter(data)
         // Setting the Adapter with the recyclerview
         recyclerview.adapter = adapter
     }
