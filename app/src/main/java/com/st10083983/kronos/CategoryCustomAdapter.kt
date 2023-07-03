@@ -27,12 +27,16 @@ class CategoryCustomAdapter(private val mList: List<CategoryReportItems>) : Recy
 
         val reportItems = mList[position]
 
-        // sets the image to the textview from our itemHolder class
         val categoryItem = "Category: " + reportItems.categoryName + "\n" + "Total Hours: " + reportItems.totalEntryHoursWorked
         holder.category.text =  categoryItem
-        holder.progress.min = reportItems.minHours!!
-        holder.progress.max = reportItems.maxHours!!
-        holder.progress.progress = reportItems.totalEntryHoursWorked
+        holder.progressBar.min = reportItems.minHours!!
+        holder.progressBar.max = reportItems.maxHours!!
+        holder.progressBar.progress = reportItems.totalEntryHoursWorked
+
+        // Debug
+        holder.progressBar.min = 5//reportItems.minHours!!
+        holder.progressBar.max = 10//reportItems.maxHours!!
+        holder.progressBar.progress = 7//reportItems.totalEntryHoursWorked
     }
 
     // return the number of the items in the list
@@ -44,6 +48,6 @@ class CategoryCustomAdapter(private val mList: List<CategoryReportItems>) : Recy
     // Holds the views for adding it to image and text
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
         val category: TextView = itemView.findViewById(R.id.item)
-        val progress: ProgressBar = itemView.findViewById(R.id.category_progress)
+        val progressBar: ProgressBar = itemView.findViewById(R.id.category_progress)
     }
 }

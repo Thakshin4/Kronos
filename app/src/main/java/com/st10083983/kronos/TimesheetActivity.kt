@@ -18,14 +18,15 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 
 // ArrayList of KCategory Objects
-var categories = mutableListOf<Category>()
-
+var arrCategories = mutableListOf<Category>()
 class TimesheetActivity : AppCompatActivity() {
 
     private lateinit var pickerSelectDate: Button
     private lateinit var textSelectedDate: TextView
     @SuppressLint("SetTextI18n", "SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
+        readCategories()
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_timesheet)
 
@@ -34,8 +35,6 @@ class TimesheetActivity : AppCompatActivity() {
 
         // Create a database reference to the "users" node in the database
         val usersRef = FirebaseDatabase.getInstance().getReference("users")
-
-        readCategories()
 
         // Date Picker
         pickerSelectDate = findViewById(R.id.pick_date_button)
@@ -80,10 +79,10 @@ class TimesheetActivity : AppCompatActivity() {
         })
 
         // Spinner
-        val arrCategoryNames = categories.map { it.name }
+        val arrCategoryNames = arrCategories.map { it.name }
 
         val spinnerEntryCategory = findViewById<Spinner>(R.id.entry_category_spinner)
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, arrCategoryNames)
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, categoryNames)
         spinnerEntryCategory.adapter = adapter
 
         // Variables
@@ -100,7 +99,7 @@ class TimesheetActivity : AppCompatActivity() {
             val entryDate = textSelectedDate.text.toString()
             val entryHours = edtxEntryHours.text.toString().toInt()
             val entryDescription = edtxEntryDescription.text.toString()
-            val entryCategory = spinnerEntryCategory.selectedItem.toString()
+            val entryCategoryName = spinnerEntryCategory.selectedItem.toString()
 
             if (entryDate.isEmpty() || entryDescription.isEmpty())
             {
@@ -112,7 +111,7 @@ class TimesheetActivity : AppCompatActivity() {
             }
             else
             {
-                val timesheetEntry = Timesheet(dateFormat.parse(entryDate) as Date, entryHours, entryDescription, entryCategory)
+                val timesheetEntry = Timesheet(dateFormat.parse(entryDate) as Date, entryHours, entryDescription, entryCategoryName)
                 handleCreateEntry(timesheetEntry)
             }
         }
@@ -153,6 +152,7 @@ class TimesheetActivity : AppCompatActivity() {
     }
 
     // Read Categories
+// Read Categories
     private fun readCategories()
     {
         // Get the current user's UID
@@ -168,7 +168,7 @@ class TimesheetActivity : AppCompatActivity() {
                 for (categorySnapshot in dataSnapshot.children) {
                     val category = categorySnapshot.getValue(Category::class.java)
                     category?.let {
-                        categories.add(category)
+                        arrCategories.add(category)
                     }
                 }
             }
